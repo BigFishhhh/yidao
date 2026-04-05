@@ -1,4 +1,5 @@
 const API_BASE = process.env.NEXT_PUBLIC_API_BASE || "http://localhost:8000";
+const API_KEY = process.env.NEXT_PUBLIC_API_KEY || "";
 
 export { API_BASE };
 
@@ -8,10 +9,10 @@ export async function fetchSSE(
   onChunk: (text: string | object) => void,
   method: "POST" | "GET" = "POST",
 ): Promise<void> {
-  const options: RequestInit = {
-    method,
-    headers: { "Content-Type": "application/json" },
-  };
+  const headers: Record<string, string> = { "Content-Type": "application/json" };
+  if (API_KEY) headers["X-API-Key"] = API_KEY;
+
+  const options: RequestInit = { method, headers };
   if (method === "POST") {
     options.body = JSON.stringify(body);
   }

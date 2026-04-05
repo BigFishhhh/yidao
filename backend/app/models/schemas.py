@@ -4,6 +4,7 @@ from pydantic import BaseModel
 class ChatRequest(BaseModel):
     question: str
     history: list[dict] = []
+    numbers: list[int] | None = None  # 起卦用，三个数字
 
 
 class ChatResponse(BaseModel):

@@ -47,7 +47,7 @@ function CastingAnimation() {
   }, []);
 
   return (
-    <div className="flex flex-col items-center py-16 animate-ink-in">
+    <div className="flex flex-col items-center py-12 md:py-16 animate-ink-in">
       <div className="relative">
         <div
           className="absolute inset-0 rounded-full blur-2xl transition-opacity duration-500"
@@ -57,7 +57,7 @@ function CastingAnimation() {
           }}
         />
         <div
-          className="text-7xl font-serif transition-all duration-150 relative"
+          className="text-5xl md:text-7xl font-serif transition-all duration-150 relative"
           style={{ opacity, color: "#8b2500" }}
         >
           {symbol}
@@ -155,15 +155,51 @@ export default function DivinationPage() {
   }
 
   return (
-    <div className="max-w-3xl mx-auto px-6 py-8">
-      <div className="mb-8">
-        <h1 className="text-2xl font-serif font-bold text-ink tracking-wider">起卦解卦</h1>
+    <div className="max-w-3xl mx-auto px-4 md:px-6 py-6 md:py-8">
+      {/* 题词横幅 */}
+      <div className="relative overflow-hidden rounded-xl mb-6 md:mb-8 py-8 md:py-10 px-4 md:px-6 text-center"
+        style={{
+          background: "linear-gradient(135deg, #1a1410 0%, #2c2420 40%, #3d2b1f 70%, #1a1410 100%)",
+        }}
+      >
+        <div className="absolute inset-0 opacity-10"
+          style={{
+            backgroundImage: "radial-gradient(circle at 30% 50%, rgba(139,37,0,0.4) 0%, transparent 50%), radial-gradient(circle at 70% 30%, rgba(184,134,11,0.3) 0%, transparent 50%)",
+          }}
+        />
+        <p className="relative text-lg md:text-xl font-serif tracking-[0.35em] text-paper/90 drop-shadow-md">
+          六爻算尽天下事
+        </p>
+        <p className="relative text-lg md:text-xl font-serif tracking-[0.35em] text-paper/70 mt-2 drop-shadow-md">
+          梅花化解天下苦
+        </p>
+        <div className="relative w-12 h-px bg-primary-light/30 mx-auto mt-5" />
+      </div>
+
+      <div className="mb-6 md:mb-8">
+        <h1 className="text-xl md:text-2xl font-serif font-bold text-ink tracking-wider">起卦解卦</h1>
         <div className="w-12 h-px bg-primary/30 mt-2 mb-3" />
         <p className="text-sm text-muted">心中默想所问之事，输入三个数字或随机起卦</p>
       </div>
 
-      <div className="p-8 rounded-xl border border-border/60 bg-card-bg/60 backdrop-blur-sm mb-8">
-        <div className="grid grid-cols-3 gap-5 mb-8">
+      {/* 起卦方法介绍 */}
+      <div className="p-4 md:p-6 rounded-xl border border-border/60 bg-card-bg/60 backdrop-blur-sm mb-6 md:mb-8 text-sm leading-[1.8] text-foreground/80">
+        <h3 className="font-serif font-semibold text-ink mb-3 tracking-wide">梅花易数 · 三数起卦法</h3>
+        <p className="mb-3">
+          本站采用<strong className="text-ink">梅花易数</strong>中的数字起卦法，由宋代易学大家<strong className="text-ink">邵雍（邵康节）</strong>所创。方法简洁：心中默想所问之事，随意给出三个数字，系统据此推演卦象。
+        </p>
+        <ul className="space-y-1 text-foreground/75 ml-1 mb-3">
+          <li><strong className="text-ink">第一个数</strong> ÷ 8 取余 → 确定<strong className="text-ink">上卦</strong>（外在环境）</li>
+          <li><strong className="text-ink">第二个数</strong> ÷ 8 取余 → 确定<strong className="text-ink">下卦</strong>（自身状态）</li>
+          <li><strong className="text-ink">第三个数</strong> ÷ 6 取余 → 确定<strong className="text-ink">动爻</strong>（变化之机）</li>
+        </ul>
+        <p className="text-foreground/60 text-xs">
+          余数对应八卦：1乾、2兑、3离、4震、5巽、6坎、7艮、8坤（整除取8或6）。数由心生，诚心则灵。
+        </p>
+      </div>
+
+      <div className="p-5 md:p-8 rounded-xl border border-border/60 bg-card-bg/60 backdrop-blur-sm mb-6 md:mb-8">
+        <div className="grid grid-cols-3 gap-3 md:gap-5 mb-6 md:mb-8">
           {[
             { value: num1, setter: setNum1, label: "第一个数" },
             { value: num2, setter: setNum2, label: "第二个数" },
@@ -178,12 +214,12 @@ export default function DivinationPage() {
                 placeholder="1-999"
                 min="1"
                 max="999"
-                className="w-full px-3 py-3 rounded-lg border border-border/60 bg-paper/40 text-center text-lg font-serif focus:outline-none focus:border-primary/40 transition-colors duration-200"
+                className="w-full px-3 py-3 rounded-lg border border-border/60 bg-paper/40 text-center text-base md:text-lg font-serif focus:outline-none focus:border-primary/40 transition-colors duration-200"
               />
             </div>
           ))}
         </div>
-        <div className="flex gap-4">
+        <div className="flex flex-col sm:flex-row gap-3 md:gap-4">
           <button
             onClick={() => handleDivine(false)}
             disabled={loading || !num1 || !num2 || !num3}
@@ -206,17 +242,17 @@ export default function DivinationPage() {
       {animating && <CastingAnimation />}
 
       {meta && (
-        <div className="p-8 rounded-xl border border-border/60 bg-card-bg/60 backdrop-blur-sm animate-ink-in">
+        <div className="p-5 md:p-8 rounded-xl border border-border/60 bg-card-bg/60 backdrop-blur-sm animate-ink-in">
           {/* 卦象标题 */}
           <div className="text-center mb-6">
-            <div className="text-6xl mb-4">{meta.hexagram_symbol}</div>
-            <h2 className="text-2xl font-serif font-bold text-ink tracking-wider">
+            <div className="text-4xl md:text-6xl mb-4">{meta.hexagram_symbol}</div>
+            <h2 className="text-xl md:text-2xl font-serif font-bold text-ink tracking-wider">
               {meta.hexagram_description}（{meta.hexagram_name}卦）
             </h2>
           </div>
 
           {/* 起卦过程说明 */}
-          <div className="bg-paper-dark/40 rounded-lg p-5 mb-6 text-sm leading-[1.8]">
+          <div className="bg-paper-dark/40 rounded-lg p-4 md:p-5 mb-6 text-sm leading-[1.8]">
             <h3 className="font-serif font-semibold text-foreground mb-3 tracking-wide">起卦说明</h3>
             <p className="text-foreground/80 mb-2">
               本次使用三数起卦法（梅花易数），所用数字为

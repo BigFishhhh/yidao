@@ -32,7 +32,7 @@ async def divine(req: DivinationRequest):
 引用第{result['changing_line']}爻爻辞原文，再用白话文逐句翻译解释。
 
 ## 象传·彖传
-结合象传、彖传进行分析。
+先用一两句话简要说明什么是象传（解释卦象寓意）和彖传（解释卦辞含义），然后结合本卦的象传、彖传进行分析。
 
 注意：所有古文原文都必须附带白话文翻译，确保没有古文基础的读者也能完全理解。"""
     interpretation = await llm.chat_completion(question=prompt, context=context)
@@ -70,7 +70,7 @@ async def divine_stream(req: DivinationRequest):
 引用第{result['changing_line']}爻爻辞原文，再用白话文逐句翻译解释。
 
 ## 象传·彖传
-结合象传、彖传进行分析。
+先用一两句话简要说明什么是象传（解释卦象寓意）和彖传（解释卦辞含义），然后结合本卦的象传、彖传进行分析。
 
 注意：所有古文原文都必须附带白话文翻译，确保没有古文基础的读者也能完全理解。"""
 
